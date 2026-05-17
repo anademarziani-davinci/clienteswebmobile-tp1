@@ -25,8 +25,8 @@
     </h3>
     <p class="text-sm text-gray-100 mb-5">Miembro desde {{ memberSince }}</p>
     <div class="mt-auto">
-      <AppButton variant="white" @click="$emit('edit')">
-        Modificar datos
+      <AppButton variant="glass" @click="$emit('action')">
+        {{ buttonLabel }}
       </AppButton>
     </div>
   </div>
@@ -42,7 +42,8 @@ export default {
     props: {
         name: { type: String, required: true },
         memberSince: { type: String, default: '' },
+        buttonLabel: { type: String, default: 'Modificar datos' },
     },
-    emits: ['edit'],
+    emits: ['action'],
 };
 </script>

@@ -5,22 +5,42 @@
             subtitle="Gestioná tu información personal y preferencias."
         />
 
+        <!-- Alert de éxito tras cambio de contraseña -->
+        <Alert
+            v-if="showPasswordUpdatedAlert"
+            variant="success"
+            title="¡Contraseña actualizada!"
+            message="Tu contraseña fue cambiada correctamente. Si querés, podés cerrar sesión y volver a entrar usando tu nueva contraseña."
+            action-label="Volver a iniciar sesión"
+            dismissible
+            :auto-dismiss="6000"
+            @action="goToLogin"
+            @update:model-value="dismissAlert"
+        />
+
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
-            <!-- Sidebar: avatar y botón de editar -->
+            <!-- Sidebar: avatar y botón de cambiar contraseña -->
             <aside class="lg:col-span-1">
                 <ProfileCard
                     :name="fullName"
                     :member-since="memberSince"
-                    @edit="goToEdit"
+                    button-label="Cambiar contraseña"
+                    @action="goToChangePassword"
                 />
             </aside>
 
             <!-- Información personal -->
             <section class="lg:col-span-2">
                 <div class="bg-white p-6 sm:p-8 shadow-sm rounded-lg h-full">
-                    <h3 class="text-lg sm:text-xl font-semibold text-violet-900 border-b border-gray-200 pb-3 mb-4 sm:mb-5">
-                        Información Personal
-                    </h3>
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-gray-200 pb-3 mb-4 sm:mb-5">
+                        <h3 class="text-lg sm:text-xl font-semibold text-violet-900">
+                            Información Personal
+                        </h3>
+                        <AppButton variant="dark" size="sm" @click="goToEdit">
+                            Modificar datos
+                        </AppButton>
+                    </div>
+
                     <dl>
                         <ProfileInfo label="Nombre completo" :value="fullName" />
                         <ProfileInfo label="Correo electrónico" :value="user?.email || '—'" />
@@ -31,7 +51,7 @@
                 </div>
             </section>
 
-            <!-- Biografía: ocupa el ancho completo debajo de las dos columnas -->
+            <!-- Biografía -->
             <section class="lg:col-span-3">
                 <div class="bg-white p-6 sm:p-8 shadow-sm rounded-lg">
                     <h3 class="text-lg sm:text-xl font-semibold text-violet-900 border-b border-gray-200 pb-3 mb-4 sm:mb-5">
@@ -53,24 +73,28 @@ import BaseTitle from '../components/ui/BaseTitle.vue';
 import ProfileCard from '../components/profile/ProfileCard.vue';
 import AppLayout from '../layouts/AppLayout.vue';
 import ProfileInfo from '../components/profile/ProfileInfo.vue';
-import { subscribeToUserStateChanges } from '../services/auth';
+import AppButton from '../components/ui/AppButton.vue';
+import Alert from '../components/ui/Alert.vue';
+import { subscribeToUserStateChanges, logout } from '../services/auth';
 
 export default {
     name: 'Profile',
-    components: { BaseTitle, ProfileCard, AppLayout, ProfileInfo },
+    components: { BaseTitle, ProfileCard, AppLayout, ProfileInfo, AppButton, Alert },
     data() {
         return {
             user: {
                 id: null,
                 email: null,
             },
-            // Datos dummy de ejemplo. Reemplazar luego por fetch real al backend.
+            // Estado local del alert. Se inicializa según el query param y se puede cerrar.
+            showPasswordUpdatedAlert: false,
             profile: {
                 name: 'Juan',
                 last_name: 'Pérez',
                 username: 'juanperez',
+                email: '',
                 phone: '+54 11 5555-1234',
-                address: 'Calle Falsa 123, Buenos Aires, AR',
+                address: 'Av. Siempreviva 742, CABA',
                 career: 'Tecnicatura en Diseño y Desarrollo Web',
                 bio: 'Soy estudiante de desarrollo web apasionado por crear experiencias digitales.\nMe interesa especialmente el frontend con Vue.js y el diseño de interfaces accesibles.\n\nEn mi tiempo libre disfruto de la fotografía y los videojuegos retro.',
                 created_at: '2024-03-15T10:30:00Z',
@@ -93,10 +117,28 @@ export default {
     },
     mounted() {
         subscribeToUserStateChanges(userData => this.user = userData);
+
+        // Si venimos del cambio de contraseña, mostramos el alert.
+        if (this.$route.query['password-updated'] === 'true') {
+            this.showPasswordUpdatedAlert = true;
+            // Limpiamos el query param de la URL para que al refrescar no vuelva a aparecer.
+            this.$router.replace({ path: '/perfil', query: {} });
+        }
     },
     methods: {
         goToEdit() {
             this.$router.push('/perfil/editar');
+        },
+        goToChangePassword() {
+            this.$router.push('/perfil/cambiar-contrasena');
+        },
+        async goToLogin() {
+            // Cerramos sesión y mandamos al login para que entre con la nueva contraseña.
+            await logout();
+            this.$router.push('/ingresar');
+        },
+        dismissAlert(value) {
+            this.showPasswordUpdatedAlert = value;
         },
     },
 };

@@ -16,6 +16,7 @@ import Login from "../pages/Login.vue";
 import Register from "../pages/Register.vue";
 import MyProfile from "../pages/MyProfile.vue";
 import ProfileEdit from "../pages/ProfileEdit.vue";
+import ChangePassword from "../pages/ChangePassword.vue";
 
 // Las rutas se definen como un array de objetos.
 // Cada objeto representa una ruta.
@@ -27,12 +28,13 @@ import ProfileEdit from "../pages/ProfileEdit.vue";
 // Esta es una propiedad que es un objeto donde podemos guardar
 // data arbitraria que queremos dejar asociada a la ruta.
 const routes = [
-    { path: '/',                component: Home,        meta: { requiresAuth: true , label: 'Inicio' }, },
-    { path: '/chat',            component: PublicChat,  meta: { requiresAuth: true , label: 'Chat Público' }, },
-    { path: '/perfil',          component: MyProfile,   meta: { requiresAuth: true }, },
-    { path: '/ingresar',        component: Login, },
-    { path: '/crear-cuenta',    component: Register, },
-    { path: '/perfil/editar',   component: ProfileEdit  },
+    { path: '/',                            component: Home,            meta: { requiresAuth: true , label: 'Inicio' }, },
+    { path: '/chat',                        component: PublicChat,      meta: { requiresAuth: true , label: 'Chat Público' }, },
+    { path: '/perfil',                      component: MyProfile,       meta: { requiresAuth: true }, },
+    { path: '/perfil/cambiar-contrasena',   component: ChangePassword,  meta: { requiresAuth: true }, },
+    { path: '/ingresar',                    component: Login, },
+    { path: '/crear-cuenta',                component: Register, },
+    { path: '/perfil/editar',               component: ProfileEdit  },
 ];
 
 // Creamos el router.

@@ -3,14 +3,14 @@
     :type="type"
     :disabled="disabled"
     :class="[
-      'w-full',
       'min-h-[44px]',
-      'px-4 py-2.5 sm:py-3',
-      'text-base font-semibold',
+      'font-semibold',
       'rounded-xl',
       'transition-colors duration-200',
       'focus:outline-none focus:ring-2 focus:ring-offset-2',
       'cursor-pointer',
+      'inline-flex items-center justify-center gap-2',
+      sizeClasses,
       variantClasses,
       disabled && 'opacity-60 cursor-not-allowed',
     ]"
@@ -28,7 +28,12 @@ export default {
     variant: {
       type: String,
       default: 'dark',
-      validator: (v) => ['dark', 'primary', 'outline', 'white'].includes(v),
+      validator: (v) => ['dark', 'primary', 'outline', 'white', 'glass', 'text'].includes(v),
+    },
+    size: {
+      type: String,
+      default: 'lg',
+      validator: (v) => ['sm', 'md', 'lg'].includes(v),
     },
     disabled: { type: Boolean, default: false },
   },
@@ -42,8 +47,22 @@ export default {
           'bg-violeta-600 text-white hover:bg-violeta-700 focus:ring-violeta-500',
         outline:
           'bg-transparent text-gray-900 border border-azul-900 hover:bg-gray-100 hover:text-gray-900 focus:ring-gray-900',
+        glass:
+          'bg-white/10 text-white border border-white/20 backdrop-blur-md hover:bg-white/20 focus:ring-white/50',
+        // Variante "text": botón solo texto, sin fondo ni borde.
+        // Útil para acciones secundarias inline (links, undo, etc).
+        text:
+          'bg-transparent text-azul-700 hover:text-azul-900 hover:bg-gray-100 focus:ring-azul-500',
       };
       return variants[this.variant] || variants.dark;
+    },
+    sizeClasses() {
+      const sizes = {
+        sm: 'w-auto px-4 py-1.5 text-sm',
+        md: 'w-auto px-4 py-2 text-base',
+        lg: 'w-full px-4 py-2.5 sm:py-3 text-base',
+      };
+      return sizes[this.size] || sizes.lg;
     },
   },
   methods: {

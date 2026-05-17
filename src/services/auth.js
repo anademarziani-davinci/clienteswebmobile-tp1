@@ -143,3 +143,26 @@ function notifyAll() {
     observers.forEach(observer => notify(observer));
     // observers.forEach(notify); // También podría escribirse así.
 }
+
+/**
+ * Actualiza la contraseña del usuario autenticado.
+ * Requiere que haya una sesión activa.
+ * 
+ * @param {string} newPassword - La nueva contraseña.
+ * @returns {Object} - El usuario actualizado.
+ */
+export async function updatePassword(newPassword) {
+    const { data, error } = await supabase
+        .auth
+        .updateUser({
+            password: newPassword,
+        });
+
+    if (error) {
+        console.error('[auth.js updatePassword] Error al actualizar la contraseña: ', error);
+
+        throw new Error(error.message);
+    }
+
+    return data.user;
+}
