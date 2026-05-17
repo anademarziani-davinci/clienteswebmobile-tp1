@@ -1,0 +1,43 @@
+<!doctype html>
+<html class="h-full" lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap" 
+      rel="stylesheet"
+    >
+    <title>airax</title>
+  </head>
+  <body class="h-full bg-gray-100">
+    <!-- 
+    # Usando valores arbitrarios
+    Nos vamos a encontrar en casos donde los valores
+    defaults que Tailwind trae no alcanzan.
+    Sino que necesitamos poder especificar nuestros
+    propios valores.
+    Una forma de resolverlo, por supuesto, es 
+    escribiendo el CSS directamente.
+    Pero si necesitamos usar un valor que solo tiene
+    que estar en un único lugar ("one-off"), entonces
+    podemos aprovechar los valores arbitrarios de 
+    Tailwind.
+    Se usan escribiendo:
+      .identificador-[valor]
+
+    Por ejemplo, si escribimos:
+      h-[33px]
+      => .h-\[33px\] { height: 33px }
+    
+    ¡Importante!
+    Si el valor contiene espacios, como no son
+    caracteres permitidos de nombre de clase en
+    CSS, los reemplazamos por "_".
+    -->
+    <div id="app" class="grid grid-rows-[60px_1fr_100px] h-full"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

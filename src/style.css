@@ -1,0 +1,124 @@
+@import 'tailwindcss';
+
+
+@theme {
+    /* Azul oscuro de marca */
+    --color-azul-50:  #F0F1F5;
+    --color-azul-100: #D6D9E4;
+    --color-azul-200: #ADB3C9;
+    --color-azul-300: #848DAE;
+    --color-azul-400: #5B6793;
+    --color-azul-500: #324178;
+    --color-azul-600: #1E2A5C;
+    --color-azul-700: #141C46;
+    --color-azul-800: #0A0C2F;
+    --color-azul-900: #06081F;
+    --color-azul-950: #03040F;
+
+    /* Violeta */
+    --color-violeta-50:  #F5F0FE;
+    --color-violeta-100: #E8DCFC;
+    --color-violeta-200: #D4BEF9;
+    --color-violeta-300: #BC9CF4;
+    --color-violeta-400: #A27BEE;
+    --color-violeta-500: #885FE0;
+    --color-violeta-600: #6E45C8;
+    --color-violeta-700: #5635A3;
+    --color-violeta-800: #422980;
+    --color-violeta-900: #2E1B5C;
+    --color-violeta-950: #1A0F38;
+
+    /* Cian */
+    --color-cian-50:  #EDF8FE;
+    --color-cian-100: #D4EFFC;
+    --color-cian-200: #ADE0F9;
+    --color-cian-300: #82D1F7;
+    --color-cian-400: #4AC2F5;
+    --color-cian-500: #1FA8E0;
+    --color-cian-600: #1485B5;
+    --color-cian-700: #0F668A;
+    --color-cian-800: #0F3F5C;
+    --color-cian-900: #082A40;
+    --color-cian-950: #04182A;
+
+    /* Tipografías */
+    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Urbanist', system-ui, sans-serif;
+
+    --spacing-card-min: 300px;
+    --spacing-card-md: 500px;
+    --spacing-card-lg: 550px;
+}
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Urbanist', system-ui, sans-serif;
+}
+.bg-gradient-primary{
+  background:
+  radial-gradient(ellipse at top, rgba(139, 86, 240, 0.15), transparent 60%),
+  linear-gradient(135deg, #0A0C2F 0%, #0A0C2F 39%, #604B9B 74%, #8B56F0 100%);
+
+}
+
+.bg-brand-gradient {
+    position: relative;
+    background: 
+        radial-gradient(ellipse 80% 60% at 50% 110%, #c44dc4 0%, transparent 50%),
+        radial-gradient(ellipse 60% 80% at 100% 20%, #7ba8c9 0%, transparent 55%),
+        radial-gradient(ellipse 70% 70% at 0% 0%, #0f1419 0%, transparent 60%),
+        linear-gradient(135deg, #1a1d2e 0%, #3d2a5c 40%, #7a4a8a 70%, #6a90b5 100%);
+}
+
+.bg-brand-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.bg-brand-gradient > * {
+    position: relative;
+    z-index: 1;
+}
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  img,
+  picture,
+  svg {
+    max-width: 100%;
+    display: block;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+
+@layer utilities {
+  /* Altura dinámica del viewport con fallback para navegadores viejos */
+  .min-h-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+}

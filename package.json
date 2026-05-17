@@ -1,0 +1,23 @@
+{
+  "name": "proyecto",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.5",
+    "vite": "^8.0.1"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.1",
+    "@tailwindcss/vite": "^4.2.2",
+    "lucide-vue-next": "^1.0.0",
+    "tailwindcss": "^4.2.2",
+    "vue": "^3.5.31",
+    "vue-router": "^4.6.4"
+  }
+}
