@@ -88,7 +88,7 @@
       >
         <div
           v-show="mobileOpen"
-          class="lg:hidden mt-3 pt-3 border-t border-azul-500"
+          class="lg:hidden mt-3 pt-3"
         >
           <ul class="flex flex-col gap-1 mb-3">
             <li v-for="link in links" :key="link.to">
