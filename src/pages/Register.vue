@@ -13,7 +13,7 @@ export default {
     components: { AuthLayout, AuthCard, FormInput, FormPasswordInput, AppButton, FormCheckbox },
     data() {
         return {
-            // Íconos de Lucide
+            // Iconos de Lucide
             userIcon: User,
             atIcon: AtSign,
             mailIcon: Mail,
@@ -35,13 +35,19 @@ export default {
         async handleSubmit() {
             this.errorMsg = '';
 
-            // Validación: las contraseñas tienen que coincidir.
+             // Validacion: la contraseña debe tener al menos 6 caracteres.
+            if (this.user.password.length < 6) {
+                this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
+                return;
+            }
+
+            // Validacion: las contraseñas tienen que coincidir
             if (this.user.password !== this.user.confirm_password) {
                 this.errorMsg = 'Las contraseñas no coinciden.';
                 return;
             }
 
-            // Validación: aceptar términos.
+            // Validación: aceptar terminos.
             // if (!this.user.terminos) {
             //     this.errorMsg = 'Debés aceptar los términos y condiciones.';
             //     return;
@@ -119,7 +125,7 @@ export default {
                             id="contrasena"
                             v-model="user.password"
                             label="Contraseña"
-                            placeholder="Mínimo 8 caracteres"
+                            placeholder="Mínimo 6 caracteres"
                             :icon="lockIcon"
                             required
                             autocomplete="new-password"

@@ -16,16 +16,16 @@
 </template>
 
 <script>
-export default {
-  name: 'NavLink',
-  props: {
-    to: { type: String, required: true },
-    label: { type: String, default: '' },
-  },
-  computed: {
-    isActive() {
-      return this.$route.path === this.to
+  export default {
+    name: 'NavLink',
+    props: {
+      to: { type: String, required: true },
+      label: { type: String, default: '' },
     },
-  },
-}
+    computed: {
+      isActive() {
+        return this.$route.path === this.to
+      },
+    },
+  }
 </script>

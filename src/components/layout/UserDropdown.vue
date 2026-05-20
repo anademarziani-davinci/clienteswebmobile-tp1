@@ -1,3 +1,51 @@
+<script>
+  import { User, ChevronDown, LogOut } from 'lucide-vue-next';
+  import UserAvatar from '../ui/UserAvatar.vue';
+
+  export default {
+    name: 'UserDropdown',
+    components: { User, ChevronDown, LogOut, UserAvatar },
+    props: {
+      userName: { type: String, default: 'Usuario' },
+      email: { type: String, default: '' },
+    },
+    emits: ['logout'],
+    data() {
+      return {
+        isOpen: false,
+      };
+    },
+    mounted() {
+      document.addEventListener('click', this.handleOutsideClick);
+      document.addEventListener('keydown', this.handleEscape);
+    },
+    beforeUnmount() {
+      document.removeEventListener('click', this.handleOutsideClick);
+      document.removeEventListener('keydown', this.handleEscape);
+    },
+    methods: {
+      toggle() {
+        this.isOpen = !this.isOpen;
+      },
+      close() {
+        this.isOpen = false;
+      },
+      handleOutsideClick() {
+        this.close();
+      },
+      handleEscape(event) {
+        if (event.key === 'Escape') this.close();
+      },
+      onLogout() {
+        this.close();
+        this.$emit('logout');
+      },
+    },
+  };
+  // @click.stop en el wrapper evita que el click interno cierre el dropdown
+  // El listener global cierra el menu al hacer click afuera
+  // ESC también cierra (accesibilidad)
+</script>
 <template>
   <div class="relative" @click.stop>
     <button
@@ -86,51 +134,3 @@
   </div>
 </template>
 
-<script>
-import { User, ChevronDown, LogOut } from 'lucide-vue-next';
-import UserAvatar from '../ui/UserAvatar.vue';
-
-export default {
-  name: 'UserDropdown',
-  components: { User, ChevronDown, LogOut, UserAvatar },
-  props: {
-    userName: { type: String, default: 'Usuario' },
-    email: { type: String, default: '' },
-  },
-  emits: ['logout'],
-  data() {
-    return {
-      isOpen: false,
-    };
-  },
-  mounted() {
-    document.addEventListener('click', this.handleOutsideClick);
-    document.addEventListener('keydown', this.handleEscape);
-  },
-  beforeUnmount() {
-    document.removeEventListener('click', this.handleOutsideClick);
-    document.removeEventListener('keydown', this.handleEscape);
-  },
-  methods: {
-    toggle() {
-      this.isOpen = !this.isOpen;
-    },
-    close() {
-      this.isOpen = false;
-    },
-    handleOutsideClick() {
-      this.close();
-    },
-    handleEscape(event) {
-      if (event.key === 'Escape') this.close();
-    },
-    onLogout() {
-      this.close();
-      this.$emit('logout');
-    },
-  },
-};
-// @click.stop en el wrapper evita que el click interno cierre el dropdown
-// El listener global cierra el menú al hacer click afuera
-// ESC también cierra (accesibilidad)
-</script>

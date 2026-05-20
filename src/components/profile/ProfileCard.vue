@@ -1,3 +1,18 @@
+<script>
+  import AppButton from '../ui/AppButton.vue';
+  import { User } from 'lucide-vue-next';
+
+  export default {
+      name: 'ProfileCard',
+      components: { AppButton, User },
+      props: {
+          name: { type: String, required: true },
+          memberSince: { type: String, default: '' },
+          buttonLabel: { type: String, default: 'Modificar datos' },
+      },
+      emits: ['action'],
+  };
+</script>
 <template>
   <div
     class="
@@ -32,18 +47,3 @@
   </div>
 </template>
 
-<script>
-import AppButton from '../ui/AppButton.vue';
-import { User } from 'lucide-vue-next';
-
-export default {
-    name: 'ProfileCard',
-    components: { AppButton, User },
-    props: {
-        name: { type: String, required: true },
-        memberSince: { type: String, default: '' },
-        buttonLabel: { type: String, default: 'Modificar datos' },
-    },
-    emits: ['action'],
-};
-</script>

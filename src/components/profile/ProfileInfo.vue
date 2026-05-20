@@ -1,3 +1,13 @@
+<script>
+  export default {
+    name: 'ProfileInfo',
+    props: {
+      label: { type: String, required: true },
+      value: { type: [String, Number], default: '' },
+    },
+  };
+</script>
+
 <template>
   <div
     class="
@@ -8,20 +18,9 @@
   >
     <div class="text-gray-500 font-medium text-sm sm:text-base">{{ label }}</div>
     <div class="sm:col-span-2 text-gray-900 m-0">
+      <!-- Permite slot custom para contenido enriquecido (links, etc.) -->
       <slot>{{ value }}</slot>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ProfileInfo',
-  props: {
-    label: { type: String, required: true },
-    value: { type: [String, Number], default: '' },
-  },
-};
-// <dt>/<dd> en lugar de <div> por semántica (description list)
-// Grid: 1 columna apilada en mobile, 1+2 columnas (label/valor) en sm+
-// Permite slot custom para contenido enriquecido (links, etc.)
-</script>

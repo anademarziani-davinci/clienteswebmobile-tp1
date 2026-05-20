@@ -1,3 +1,63 @@
+<script>
+    import BaseTitle from '../components/ui/BaseTitle.vue';
+    import FormPasswordInput from '../components/ui/FormPasswordInput.vue';
+    import AppButton from '../components/ui/AppButton.vue';
+    import AppLayout from '../layouts/AppLayout.vue';
+    import { updatePassword } from '../services/auth';
+    import { Lock } from 'lucide-vue-next';
+
+    export default {
+        name: 'ChangePassword',
+        components: { BaseTitle, FormPasswordInput, AppButton, AppLayout },
+        data() {
+            return {
+                lockIcon: Lock,
+                form: {
+                    newPassword: '',
+                    confirmPassword: '',
+                },
+                loading: false,
+                errorMsg: '',
+                successMsg: '',
+            };
+        },
+        methods: {
+            async handleSubmit() {
+                this.errorMsg = '';
+                this.successMsg = '';
+
+                // Validacion: ambas contraseñas tienen que coincidir
+                if (this.form.newPassword !== this.form.confirmPassword) {
+                    this.errorMsg = 'Las contraseñas no coinciden.';
+                    return;
+                }
+
+                // Validacion: longitud mínima al menos 6 caracteres
+                if (this.form.newPassword.length < 6) {
+                    this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
+                    return;
+                }
+
+                this.loading = true;
+                try {
+                    await updatePassword(this.form.newPassword);
+                    // Redirigimos al perfil con un flag para mostrar el alert de exito
+                    this.$router.push({
+                        path: '/perfil',
+                        query: { 'password-updated': 'true' },
+                    });
+                } catch (error) {
+                    this.errorMsg = error.message || 'No se pudo actualizar la contraseña.';
+                } finally {
+                    this.loading = false;
+                }
+            },
+            onCancel() {
+                this.$router.push('/perfil');
+            },
+        },
+    };
+</script>
 <template>
     <AppLayout>
         <BaseTitle
@@ -38,7 +98,6 @@
                         >
                             {{ errorMsg }}
                         </p>
-
                         <p
                             v-if="successMsg"
                             class="text-sm text-emerald-600 mb-3 text-center"
@@ -46,8 +105,6 @@
                         >
                             {{ successMsg }}
                         </p>
-
-                        <!-- Botones -->
                         <div class="flex flex-col sm:flex-row sm:justify-end gap-2 sm:gap-3">
                             <AppButton
                                 type="button"
@@ -73,64 +130,3 @@
         </div>
     </AppLayout>
 </template>
-
-<script>
-import BaseTitle from '../components/ui/BaseTitle.vue';
-import FormPasswordInput from '../components/ui/FormPasswordInput.vue';
-import AppButton from '../components/ui/AppButton.vue';
-import AppLayout from '../layouts/AppLayout.vue';
-import { updatePassword } from '../services/auth';
-import { Lock } from 'lucide-vue-next';
-
-export default {
-    name: 'ChangePassword',
-    components: { BaseTitle, FormPasswordInput, AppButton, AppLayout },
-    data() {
-        return {
-            lockIcon: Lock,
-            form: {
-                newPassword: '',
-                confirmPassword: '',
-            },
-            loading: false,
-            errorMsg: '',
-            successMsg: '',
-        };
-    },
-    methods: {
-        async handleSubmit() {
-            this.errorMsg = '';
-            this.successMsg = '';
-
-            // Validación: ambas contraseñas tienen que coincidir.
-            if (this.form.newPassword !== this.form.confirmPassword) {
-                this.errorMsg = 'Las contraseñas no coinciden.';
-                return;
-            }
-
-            // Validación: longitud mínima (Supabase exige al menos 6).
-            if (this.form.newPassword.length < 6) {
-                this.errorMsg = 'La contraseña debe tener al menos 6 caracteres.';
-                return;
-            }
-
-            this.loading = true;
-            try {
-                await updatePassword(this.form.newPassword);
-                // Redirigimos al perfil con un flag para mostrar el alert de éxito.
-                this.$router.push({
-                    path: '/perfil',
-                    query: { 'password-updated': 'true' },
-                });
-            } catch (error) {
-                this.errorMsg = error.message || 'No se pudo actualizar la contraseña.';
-            } finally {
-                this.loading = false;
-            }
-        },
-        onCancel() {
-            this.$router.push('/perfil');
-        },
-    },
-};
-</script>

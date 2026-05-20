@@ -1,3 +1,18 @@
+<script>
+  import { User } from 'lucide-vue-next';
+
+  export default {
+    name: 'FormFieldWrapper',
+    props: {
+      forId: { type: String, required: true },
+      label: { type: String, required: true },
+      icon: { type: [Object, Function], default: () => User },
+      showIcon: { type: Boolean, default: true },
+      required: { type: Boolean, default: false },
+      wrapperClass: { type: String, default: 'mb-3 sm:mb-4' },
+    },
+  };
+</script>
 <template>
   <div :class="wrapperClass" class="min-w-0">
     <label
@@ -8,7 +23,7 @@
       <span v-if="required" class="text-red-500" aria-hidden="true">*</span>
     </label>
 
-    <!-- Con ícono: estructura horizontal (cuadrito gris a la izquierda) -->
+    <!-- Con icono: estructura horizontal (cuadrito gris a la izquierda) -->
     <div v-if="showIcon" class="flex w-full min-w-0 items-stretch">
       <span
         class="
@@ -26,23 +41,8 @@
       <slot name="control" />
     </div>
 
-    <!-- Sin ícono: el control ocupa todo el ancho -->
+    <!-- Sin icono: el control ocupa todo el ancho -->
     <slot v-else name="control" />
   </div>
 </template>
 
-<script>
-import { User } from 'lucide-vue-next';
-
-export default {
-  name: 'FormFieldWrapper',
-  props: {
-    forId: { type: String, required: true },
-    label: { type: String, required: true },
-    icon: { type: [Object, Function], default: () => User },
-    showIcon: { type: Boolean, default: true },
-    required: { type: Boolean, default: false },
-    wrapperClass: { type: String, default: 'mb-3 sm:mb-4' },
-  },
-};
-</script>

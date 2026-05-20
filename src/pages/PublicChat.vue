@@ -22,9 +22,11 @@ export default {
     data() {
         return {
             messages: [],
-            loadingMessages: true,    // Para la carga inicial
-            sending: false,           // Para cuando se envía un mensaje
-            // Datos del usuario autenticado.
+            // Para la carga inicial
+            loadingMessages: true,    
+             // Para cuando se envia un mensaje
+            sending: false,          
+            // Datos del usuario autenticado
             user: {
                 id: null,
                 email: null,
@@ -59,10 +61,10 @@ export default {
         },
     },
     async mounted() {
-        // Nos suscribimos a los cambios del usuario autenticado.
+        // Nos suscribimos a los cambios del usuario autenticado
         subscribeToUserStateChanges(userData => this.user = userData);
 
-        // Nos suscribimos a los nuevos mensajes del chat.
+        // Nos suscribimos a los nuevos mensajes del chat
         unsubscribeFromChat = subscribeToNewPublicChatMessages(
             newMessage => this.messages.push(newMessage)
         );

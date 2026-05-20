@@ -1,4 +1,19 @@
+<script>
+  import AppLogo from '../ui/AppLogo.vue';
+
+    export default {
+      name: 'AuthCard',
+      components: { AppLogo },
+      props: {
+        title: { type: String, default: '' },
+        showLogo: { type: Boolean, default: true },
+        logoTo: { type: String, default: '/' },
+      },
+    }
+</script>
+
 <template>
+   <!-- max-w-md + w-full: nunca se desborda en pantallas chicas -->
   <div
     class="
       bg-white shadow-xl
@@ -27,18 +42,3 @@
   </div>
 </template>
 
-<script>
-import AppLogo from '../ui/AppLogo.vue';
-
-export default {
-  name: 'AuthCard',
-  components: { AppLogo },
-  props: {
-    title: { type: String, default: '' },
-    showLogo: { type: Boolean, default: true },
-    logoTo: { type: String, default: '/' },
-  },
-}
-// max-w-md + w-full: nunca se desborda en pantallas chicas
-// padding escalonado: p-5 (mobile) → p-10 (desktop)
-</script>

@@ -1,3 +1,41 @@
+<script>
+  import AppLogo from '../ui/AppLogo.vue';
+  import NavLink from './NavLink.vue';
+  import UserDropdown from './UserDropdown.vue';
+  import { Menu, X } from 'lucide-vue-next';
+
+  export default {
+    name: 'AppHeader',
+    components: { NavLink, UserDropdown, AppLogo },
+    props: {
+      userName: { type: String, default: 'Usuario' },
+      userEmail: { type: String, default: '' },
+    },
+    emits: ['logout'],
+    data() {
+      return {
+        mobileOpen: false,
+        Menu,
+        X,
+      };
+    },
+    computed: {
+      links() {
+        return this.$router.getRoutes()
+          .filter(route => route.meta?.label)
+          .map(route => ({
+            to: route.path,
+            label: route.meta.label,
+          }));
+      },
+    },
+    watch: {
+      $route() {
+        this.mobileOpen = false;
+      },
+    },
+  };
+</script>
 <template>
   <header class="bg-gradient-primary w-full">
     <nav class="container mx-auto px-4 py-6">
@@ -74,42 +112,3 @@
     </nav>
   </header>
 </template>
-
-<script>
-import AppLogo from '../ui/AppLogo.vue';
-import NavLink from './NavLink.vue';
-import UserDropdown from './UserDropdown.vue';
-import { Menu, X } from 'lucide-vue-next';
-
-export default {
-  name: 'AppHeader',
-  components: { NavLink, UserDropdown, AppLogo },
-  props: {
-    userName: { type: String, default: 'Usuario' },
-    userEmail: { type: String, default: '' },
-  },
-  emits: ['logout'],
-  data() {
-    return {
-      mobileOpen: false,
-      Menu,
-      X,
-    };
-  },
-  computed: {
-    links() {
-      return this.$router.getRoutes()
-        .filter(route => route.meta?.label)
-        .map(route => ({
-          to: route.path,
-          label: route.meta.label,
-        }));
-    },
-  },
-  watch: {
-    $route() {
-      this.mobileOpen = false;
-    },
-  },
-};
-</script>

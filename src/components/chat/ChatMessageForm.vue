@@ -1,31 +1,31 @@
 <script>
-import AppButton from '../ui/AppButton.vue';
-import FormTextarea from '../ui/FormTextarea.vue';
-import { MessageSquareMore, Send } from 'lucide-vue-next';
+    import AppButton from '../ui/AppButton.vue';
+    import FormTextarea from '../ui/FormTextarea.vue';
+    import { MessageSquareMore, Send } from 'lucide-vue-next';
 
-export default {
-    name: 'ChatMessageForm',
-    components: { AppButton, FormTextarea, MessageSquareMore, Send },
-    props: {
-        loading: { type: Boolean, default: false },
-    },
-    emits: ['submit'],
-    data() {
-        return {
-            newMessage: {
-                body: '',
+    export default {
+        name: 'ChatMessageForm',
+        components: { AppButton, FormTextarea, MessageSquareMore, Send },
+        props: {
+            loading: { type: Boolean, default: false },
+        },
+        emits: ['submit'],
+        data() {
+            return {
+                newMessage: {
+                    body: '',
+                },
+            };
+        },
+        methods: {
+            handleSubmit() {
+                this.$emit('submit', { ...this.newMessage });
             },
-        };
-    },
-    methods: {
-        handleSubmit() {
-            this.$emit('submit', { ...this.newMessage });
+            clearBody() {
+                this.newMessage.body = '';
+            },
         },
-        clearBody() {
-            this.newMessage.body = '';
-        },
-    },
-};
+    };
 </script>
 
 <template>

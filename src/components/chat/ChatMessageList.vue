@@ -1,26 +1,26 @@
 <script>
-import ChatMessageItem from './ChatMessageItem.vue';
-import ChatMessageEmpty from './ChatMessageEmpty.vue';
+    import ChatMessageItem from './ChatMessageItem.vue';
+    import ChatMessageEmpty from './ChatMessageEmpty.vue';
 
-export default {
-    name: 'ChatMessageList',
-    components: { ChatMessageItem, ChatMessageEmpty },
-    props: {
-        messages: { type: Array, required: true },
-    },
-    computed: {
-        // Ordenamos del más reciente al más antiguo sin mutar el array original.
-        sortedMessages() {
-            return [...this.messages].sort((a, b) => {
-                return new Date(b.created_at) - new Date(a.created_at);
-            });
+    export default {
+        name: 'ChatMessageList',
+        components: { ChatMessageItem, ChatMessageEmpty },
+        props: {
+            messages: { type: Array, required: true },
         },
-        countLabel() {
-            const count = this.sortedMessages.length;
-            return count === 1 ? '1 mensaje' : `${count} mensajes`;
+        computed: {
+            // Ordenamos del mas reciente al más antiguo sin mutar el array original
+            sortedMessages() {
+                return [...this.messages].sort((a, b) => {
+                    return new Date(b.created_at) - new Date(a.created_at);
+                });
+            },
+            countLabel() {
+                const count = this.sortedMessages.length;
+                return count === 1 ? '1 mensaje' : `${count} mensajes`;
+            },
         },
-    },
-};
+    };
 </script>
 
 <template>

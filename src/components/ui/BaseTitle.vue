@@ -1,14 +1,3 @@
-<template>
-  <div :class="['mb-4', alignClass]">
-    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
-      {{ title }}
-    </h1>
-    <p v-if="subtitle" class="text-gray-500 text-sm sm:text-base">
-      {{ subtitle }}
-    </p>
-  </div>
-</template>
-
 <script>
   export default {
     name: 'BaseTitle',
@@ -32,3 +21,14 @@
     },
   };
 </script>
+<template>
+  <div :class="['mb-4', alignClass]">
+    <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+      {{ title }}
+    </h1>
+    <p v-if="subtitle" class="text-gray-500 text-sm sm:text-base">
+      {{ subtitle }}
+    </p>
+  </div>
+</template>
+

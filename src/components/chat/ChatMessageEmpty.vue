@@ -1,17 +1,17 @@
 <script>
-export default {
-    name: 'ChatMessageEmpty',
-    props: {
-        message: { 
-            type: String, 
-            default: 'No hay mensajes todavía. ¡Sé el primero en comentar!',
+    export default {
+        name: 'ChatMessageEmpty',
+        props: {
+            message: { 
+                type: String, 
+                default: 'No hay mensajes todavía. ¡Sé el primero en comentar!',
+            },
+            icon: {
+                type: String,
+                default: 'fa-regular fa-comment-dots',
+            },
         },
-        icon: {
-            type: String,
-            default: 'fa-regular fa-comment-dots',
-        },
-    },
-};
+    };
 </script>
 
 <template>

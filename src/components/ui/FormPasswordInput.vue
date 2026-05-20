@@ -1,3 +1,56 @@
+<script>
+    import FormFieldWrapper from './FormFieldWrapper.vue';
+    import { Eye, EyeOff } from 'lucide-vue-next';
+
+    export default {
+    name: 'FormPasswordInput',
+    components: { FormFieldWrapper },
+    props: {
+        id: { type: String, required: true },
+        name: { type: String, default: '' },
+        label: { type: String, required: true },
+        modelValue: { type: String, default: '' },
+        placeholder: { type: String, default: '' },
+        icon: { type: [String, Object, Function], default: null },
+        showIcon: { type: Boolean, default: true },
+        required: { type: Boolean, default: false },
+        autocomplete: { type: String, default: 'current-password' },
+        wrapperClass: { type: String, default: 'mb-3 sm:mb-4' },
+    },
+    emits: ['update:modelValue'],
+    data() {
+        return {
+        showPassword: false,
+        Eye,
+        EyeOff,
+        };
+    },
+    computed: {
+        // Las clases del input cambian si tiene icono al lado.
+        inputClasses() {
+        const base = `
+            flex-1 min-w-0
+            pl-3 pr-10 py-2.5 sm:py-3
+            text-base
+            border border-gray-300
+            focus:outline-none focus:ring-2 focus:ring-azul-500 focus:border-transparent
+            placeholder:text-gray-400
+        `;
+        return this.showIcon
+            ? `${base} border-l-0 rounded-r-md`
+            : `${base} block w-full rounded-md`;
+        },
+    },
+    methods: {
+        onInput(event) {
+        this.$emit('update:modelValue', event.target.value);
+        },
+        toggleVisibility() {
+        this.showPassword = !this.showPassword;
+        },
+    },
+    };
+    </script>
 <template>
   <FormFieldWrapper
     :for-id="id"
@@ -41,59 +94,3 @@
     </template>
   </FormFieldWrapper>
 </template>
-
-<script>
-import FormFieldWrapper from './FormFieldWrapper.vue';
-import { Eye, EyeOff } from 'lucide-vue-next';
-
-export default {
-  name: 'FormPasswordInput',
-  components: { FormFieldWrapper },
-  props: {
-    id: { type: String, required: true },
-    name: { type: String, default: '' },
-    label: { type: String, required: true },
-    modelValue: { type: String, default: '' },
-    placeholder: { type: String, default: '' },
-    icon: { type: [String, Object, Function], default: null },
-    showIcon: { type: Boolean, default: true },
-    required: { type: Boolean, default: false },
-    autocomplete: { type: String, default: 'current-password' },
-    wrapperClass: { type: String, default: 'mb-3 sm:mb-4' },
-  },
-  emits: ['update:modelValue'],
-  data() {
-    return {
-      showPassword: false,
-      // Exponemos los íconos para el template.
-      Eye,
-      EyeOff,
-    };
-  },
-  computed: {
-    // Las clases del input cambian si tiene ícono al lado.
-    // Además, agregamos pr-10 para dejar espacio al botón del ojito a la derecha.
-    inputClasses() {
-      const base = `
-        flex-1 min-w-0
-        pl-3 pr-10 py-2.5 sm:py-3
-        text-base
-        border border-gray-300
-        focus:outline-none focus:ring-2 focus:ring-azul-500 focus:border-transparent
-        placeholder:text-gray-400
-      `;
-      return this.showIcon
-        ? `${base} border-l-0 rounded-r-md`
-        : `${base} block w-full rounded-md`;
-    },
-  },
-  methods: {
-    onInput(event) {
-      this.$emit('update:modelValue', event.target.value);
-    },
-    toggleVisibility() {
-      this.showPassword = !this.showPassword;
-    },
-  },
-};
-</script>

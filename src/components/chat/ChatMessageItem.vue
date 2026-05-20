@@ -1,27 +1,27 @@
 <script>
-import UserAvatar from '../ui/UserAvatar.vue';
+    import UserAvatar from '../ui/UserAvatar.vue';
 
-export default {
-    name: 'ChatMessageItem',
-    components: { UserAvatar },
-    props: {
-        email: { type: String, required: true },
-        body: { type: String, required: true },
-        createdAt: { type: String, required: true },
-    },
-    computed: {
-        formattedDate() {
-            const date = new Date(this.createdAt);
-            return date.toLocaleString('es-AR', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-            });
+    export default {
+        name: 'ChatMessageItem',
+        components: { UserAvatar },
+        props: {
+            email: { type: String, required: true },
+            body: { type: String, required: true },
+            createdAt: { type: String, required: true },
         },
-    },
-};
+        computed: {
+            formattedDate() {
+                const date = new Date(this.createdAt);
+                return date.toLocaleString('es-AR', {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                });
+            },
+        },
+    };
 </script>
 
 <template>
