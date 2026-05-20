@@ -75,7 +75,7 @@ export default {
         <div class="w-full max-w-2xl">
             <AuthCard title="Registrate y comenzá a organizar tu viaje">
                 <form @submit.prevent="handleSubmit" novalidate>
-                    <!-- Nombre + Apellido -->
+                    <!-- Nombre + Apellido (Pendiente despues a ver en tabla de usuarios) -->
                     <!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3 sm:mb-4">
                         <FormInput
                             id="nombre"
@@ -119,7 +119,7 @@ export default {
                         autocomplete="email"
                     />
 
-                    <!-- Contraseñas -->
+                    <!-- Contraseñas (Pendiente despues a ver tabla de usuarios)-->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4 sm:mb-5">
                         <FormPasswordInput
                             id="contrasena"
@@ -142,7 +142,7 @@ export default {
                             wrapper-class=""
                         />
                     </div>
-
+                    <!-- Lo agregue para despues verlo despues. Cuando veamos tabla de usuarios -->
                     <!-- <FormCheckbox
                         id="terminos"
                         v-model="user.terminos"

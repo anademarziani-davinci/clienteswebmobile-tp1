@@ -77,7 +77,7 @@ export default {
     <AppLayout>
         <BaseTitle
             title="Mi Perfil"
-            subtitle="Gestioná tu información personal y preferencias."
+            subtitle="Gestioná tu información personal y preferencias"
         />
 
         <!-- Alert de exito tras cambio de contraseña -->

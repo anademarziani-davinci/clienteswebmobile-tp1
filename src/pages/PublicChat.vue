@@ -81,7 +81,7 @@ export default {
     <AppLayout>
         <BaseTitle
             title="Chat Público"
-            subtitle="Publicá tus comentarios en el portal."
+            subtitle="Publicá tus comentarios en el portal"
         />
 
         <!-- Formulario siempre visible arriba -->

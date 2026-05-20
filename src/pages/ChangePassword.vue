@@ -62,7 +62,7 @@
     <AppLayout>
         <BaseTitle
             title="Cambiar contraseña"
-            subtitle="Actualizá tu contraseña de acceso"
+            subtitle="Actualizá tu contraseña de acceso al portal"
         />
 
         <div class="flex justify-center">

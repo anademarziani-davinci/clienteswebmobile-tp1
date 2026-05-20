@@ -12,6 +12,7 @@ export default {
     components: { AuthLayout, AuthCard, FormInput, FormPasswordInput, AppButton },
     data() {
         return {
+            // Iconos de Lucile
             mailIcon: Mail,
             lockIcon: Lock,
             user: {

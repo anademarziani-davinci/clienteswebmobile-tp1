@@ -12,7 +12,7 @@ export default {
     components: { BaseTitle, FormInput, FormTextarea, AppButton, AppLayout },
     data() {
         return {
-            // Íconos de Lucide expuestos para el template.
+            // Iconos de Lucile
             userIcon: User,
             phoneIcon: Phone,
             addressIcon: MapPin,
@@ -23,7 +23,7 @@ export default {
                 id: null,
                 email: null,
             },
-            // Datos editables del formulario, precargados con valores dummy.
+            // Datos editables del formulario, precargados con valores de ejemplo.
             form: {
                 name: 'Juan',
                 last_name: 'Pérez',

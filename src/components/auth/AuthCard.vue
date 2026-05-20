@@ -28,7 +28,7 @@
     >
       <slot name="header">
         <AppLogo v-if="showLogo" :to="logoTo" />
-        <h1 v-if="title" class="text-gray-500 text-xl mb-0">
+        <h1 v-if="title" class="text-gray-600 text-xl font-medium mb-0">
           {{ title }}
         </h1>
       </slot>
