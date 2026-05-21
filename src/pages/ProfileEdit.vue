@@ -46,7 +46,7 @@ export default {
             }
 
             // Acá deberia ir la logica para guardar el perfil. Queda pendiente
-            console.log('[ProfileEdit] Datos a guardar:', { ...this.form });
+            // console.log('[ProfileEdit] Datos a guardar:', { ...this.form });
             this.$router.push('/perfil');
         },
         onCancel() {

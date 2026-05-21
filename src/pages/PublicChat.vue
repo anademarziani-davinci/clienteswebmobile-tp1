@@ -4,6 +4,7 @@ import ChatMessageForm from '../components/chat/ChatMessageForm.vue';
 import ChatMessageList from '../components/chat/ChatMessageList.vue';
 import AppLoading from '../components/ui/AppLoading.vue';
 import ChatMessageEmpty from '../components/chat/ChatMessageEmpty.vue';
+import Alert from '../components/ui/Alert.vue';
 import AppLayout from '../layouts/AppLayout.vue';
 import { subscribeToUserStateChanges } from '../services/auth';
 import { 
@@ -18,23 +19,26 @@ let unsubscribeFromChat = () => {};
 
 export default {
     name: 'PublicChat',
-    components: { BaseTitle, ChatMessageForm, ChatMessageList, AppLoading, ChatMessageEmpty, AppLayout },
+    components: { BaseTitle, ChatMessageForm, ChatMessageList, AppLoading, ChatMessageEmpty, AppLayout, Alert },
     data() {
         return {
             messages: [],
             // Para la carga inicial
             loadingMessages: true,    
-             // Para cuando se envia un mensaje
+            // Para cuando se envia un mensaje
             sending: false,          
             // Datos del usuario autenticado
             user: {
                 id: null,
                 email: null,
             },
+            // Mensaje de error a mostrar al usuario.
+            errorMsg: '',
         };
     },
     methods: {
         async handleSendMessage(messageData) {
+            this.errorMsg = '';
             this.sending = true;
             try {
                 await sendNewPublicChatMessage({
@@ -44,20 +48,24 @@ export default {
                 });
                 this.$refs.messageForm.clearBody();
             } catch (error) {
-                console.error('[PublicChat handleSendMessage] Error al enviar mensaje:', error);
+                this.errorMsg = 'No pudimos enviar tu mensaje. Probá nuevamente en unos segundos.';
             } finally {
                 this.sending = false;
             }
         },
         async loadMessages() {
+            this.errorMsg = '';
             this.loadingMessages = true;
             try {
                 this.messages = await fetchLastPublicChatMessages();
             } catch (error) {
-                console.error('[PublicChat loadMessages] Error al cargar mensajes:', error);
+                this.errorMsg = 'No pudimos cargar los mensajes. Recargá la página o intentá más tarde.';
             } finally {
                 this.loadingMessages = false;
             }
+        },
+        dismissError() {
+            this.errorMsg = '';
         },
     },
     async mounted() {
@@ -82,6 +90,17 @@ export default {
         <BaseTitle
             title="Chat Público"
             subtitle="Publicá tus comentarios en el portal"
+        />
+
+        <!-- Alert de error -->
+        <Alert
+            v-if="errorMsg"
+            variant="error"
+            title="Ocurrió un error"
+            :message="errorMsg"
+            dismissible
+            :auto-dismiss="5000"
+            @update:model-value="dismissError"
         />
 
         <!-- Formulario siempre visible arriba -->

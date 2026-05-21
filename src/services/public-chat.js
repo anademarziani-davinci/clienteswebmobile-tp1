@@ -17,7 +17,7 @@ export async function sendNewPublicChatMessage({ user_id, email, body }) {
     // Los errores los vamos a transformar en instancias de Error y usar el mecanismo de throw para
     // informarlos. De esta manera, vamos a poder capturarlos usando un try/catch
     if(error) {
-        console.error('[public-chat.js sendNewPublicChatMessage] Error al enviar el nuevo mensaje del chat público: ', error);
+        // console.error('[public-chat.js sendNewPublicChatMessage] Error al enviar el nuevo mensaje del chat público: ', error);
         throw new Error(error.message);
     }
 }
@@ -32,7 +32,7 @@ export async function fetchLastPublicChatMessages() {
         .select();
 
     if(error) {
-        console.error('[public-chat.js fetchLastPublicChatMessages] Error al traer los últimos mensajes del chat público: ', error);
+        // console.error('[public-chat.js fetchLastPublicChatMessages] Error al traer los últimos mensajes del chat público: ', error);
         throw new Error(error.message);
     }
 

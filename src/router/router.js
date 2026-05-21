@@ -15,7 +15,7 @@ const routes = [
     { path: '/perfil/cambiar-contrasena',   component: ChangePassword,  meta: { requiresAuth: true }, },
     { path: '/ingresar',                    component: Login, },
     { path: '/crear-cuenta',                component: Register, },
-    { path: '/perfil/editar',               component: ProfileEdit  },
+    { path: '/perfil/editar',               component: ProfileEdit,     meta: { requiresAuth: true },  },
 ];
 // Se agrega el label para hacer un filter y despues mostrarlo en la navegacion o el AppHeader
 
