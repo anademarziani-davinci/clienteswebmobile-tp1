@@ -32,13 +32,17 @@ export default {
                 id: null,
                 email: null,
             },
-            // Mensaje de error a mostrar al usuario.
-            errorMsg: '',
+            // Estado del alert: si tiene message, se muestra.
+            alert: {
+                variant: 'success',
+                title: '',
+                message: '',
+            },
         };
     },
     methods: {
         async handleSendMessage(messageData) {
-            this.errorMsg = '';
+            this.clearAlert();
             this.sending = true;
             try {
                 await sendNewPublicChatMessage({
@@ -47,25 +51,28 @@ export default {
                     body: messageData.body,
                 });
                 this.$refs.messageForm.clearBody();
+                this.showAlert('success', '¡Mensaje enviado!', 'Tu comentario se publicó correctamente.');
             } catch (error) {
-                this.errorMsg = 'No pudimos enviar tu mensaje. Probá nuevamente en unos segundos.';
+                this.showAlert('error', 'Ocurrió un error', 'No pudimos enviar tu mensaje. Probá nuevamente en unos segundos.');
             } finally {
                 this.sending = false;
             }
         },
         async loadMessages() {
-            this.errorMsg = '';
             this.loadingMessages = true;
             try {
                 this.messages = await fetchLastPublicChatMessages();
             } catch (error) {
-                this.errorMsg = 'No pudimos cargar los mensajes. Recargá la página o intentá más tarde.';
+                this.showAlert('error', 'Ocurrió un error', 'No pudimos cargar los mensajes. Recargá la página o intentá más tarde.');
             } finally {
                 this.loadingMessages = false;
             }
         },
-        dismissError() {
-            this.errorMsg = '';
+        showAlert(variant, title, message) {
+            this.alert = { variant, title, message };
+        },
+        clearAlert() {
+            this.alert = { variant: 'success', title: '', message: '' };
         },
     },
     async mounted() {
@@ -92,15 +99,14 @@ export default {
             subtitle="Publicá tus comentarios en el portal"
         />
 
-        <!-- Alert de error -->
         <Alert
-            v-if="errorMsg"
-            variant="error"
-            title="Ocurrió un error"
-            :message="errorMsg"
+            v-if="alert.message"
+            :variant="alert.variant"
+            :title="alert.title"
+            :message="alert.message"
             dismissible
-            :auto-dismiss="5000"
-            @update:model-value="dismissError"
+            :auto-dismiss="alert.variant === 'success' ? 3000 : 5000"
+            @update:model-value="clearAlert"
         />
 
         <!-- Formulario siempre visible arriba -->

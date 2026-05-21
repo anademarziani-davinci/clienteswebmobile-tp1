@@ -1,0 +1,10 @@
+Carrera: Diseño y Desarrollo Web
+Materia: Clientes Web Mobile
+Cuatrimestre: 4to
+Año: 2026
+Turno: Mañana
+Comisión: DWM4AV
+Apellido: Demarziani
+Nombre: Ana 
+Docente: Santiago Gallino
+Carácter de entrega: 1er parcial
